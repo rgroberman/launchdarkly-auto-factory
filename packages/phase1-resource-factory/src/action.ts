@@ -131,6 +131,9 @@ function mapActionInputs(): void {
   set("ANTHROPIC_API_KEY", "anthropic_api_key");
   set("LD_API_KEY", "ld_api_key");
   set("LD_BASE_URL", "ld_base_url");
+  set("LD_STREAM_URL", "ld_stream_url");
+  set("LD_SDK_BASE_URL", "ld_sdk_base_url");
+  set("LD_EVENTS_URL", "ld_events_url");
   set("LD_PROJECT_KEY", "ld_project_key");
   set("LD_PROJECT_SLUG", "ld_project_slug");
   set("LD_APP_PROJECT_KEY", "ld_app_project_key");

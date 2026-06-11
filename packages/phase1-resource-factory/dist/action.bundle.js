@@ -35347,6 +35347,16 @@ function initAi(ldClient) {
 }
 
 // ../shared/dist/ldSdk.js
+function buildSdkOptions() {
+  const streamUri = process.env.LD_STREAM_URL;
+  const baseUri = process.env.LD_SDK_BASE_URL;
+  const eventsUri = process.env.LD_EVENTS_URL;
+  return {
+    ...baseUri ? { baseUri } : {},
+    ...streamUri ? { streamUri } : {},
+    ...eventsUri ? { eventsUri } : {}
+  };
+}
 var cached = null;
 async function getLdSdk() {
   if (cached)
@@ -35356,7 +35366,7 @@ async function getLdSdk() {
   if (!sdkKey) {
     throw new Error("LD_SDK_KEY not set \u2014 the server SDK key for flag evaluation and AI config/graph resolution");
   }
-  const ldClient = (0, import_node_server_sdk.init)(sdkKey);
+  const ldClient = (0, import_node_server_sdk.init)(sdkKey, buildSdkOptions());
   await ldClient.waitForInitialization({ timeout: 15 });
   const aiClient = initAi(ldClient);
   cached = { ldClient, aiClient };
@@ -36335,6 +36345,9 @@ function mapActionInputs() {
   set("ANTHROPIC_API_KEY", "anthropic_api_key");
   set("LD_API_KEY", "ld_api_key");
   set("LD_BASE_URL", "ld_base_url");
+  set("LD_STREAM_URL", "ld_stream_url");
+  set("LD_SDK_BASE_URL", "ld_sdk_base_url");
+  set("LD_EVENTS_URL", "ld_events_url");
   set("LD_PROJECT_KEY", "ld_project_key");
   set("LD_PROJECT_SLUG", "ld_project_slug");
   set("LD_APP_PROJECT_KEY", "ld_app_project_key");

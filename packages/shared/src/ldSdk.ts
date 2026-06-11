@@ -13,9 +13,29 @@
  * holds the AI configs, graph, and operational flags.
  */
 
-import { type LDClient, type LDContext, init } from "@launchdarkly/node-server-sdk";
+import { type LDClient, type LDContext, type LDOptions, init } from "@launchdarkly/node-server-sdk";
 import { type LDAIClient, initAi } from "@launchdarkly/server-sdk-ai";
 import { loadDotEnv } from "./env.js";
+
+/**
+ * Build server-SDK options. By default the SDK targets the commercial cloud
+ * (stream/sdk/events.launchdarkly.com). For instances such as catamorphic, set
+ * LD_STREAM_URL / LD_SDK_BASE_URL / LD_EVENTS_URL to override the relevant
+ * service endpoints. Any subset may be provided; unset endpoints keep defaults.
+ *
+ * The node-server-sdk (v9) exposes these as the flat baseUri/streamUri/eventsUri
+ * options rather than serviceEndpoints.
+ */
+function buildSdkOptions(): LDOptions {
+  const streamUri = process.env.LD_STREAM_URL;
+  const baseUri = process.env.LD_SDK_BASE_URL;
+  const eventsUri = process.env.LD_EVENTS_URL;
+  return {
+    ...(baseUri ? { baseUri } : {}),
+    ...(streamUri ? { streamUri } : {}),
+    ...(eventsUri ? { eventsUri } : {}),
+  };
+}
 
 export interface LdSdk {
   /** Server SDK client — flag evaluation. */
@@ -34,7 +54,7 @@ export async function getLdSdk(): Promise<LdSdk> {
   if (!sdkKey) {
     throw new Error("LD_SDK_KEY not set — the server SDK key for flag evaluation and AI config/graph resolution");
   }
-  const ldClient = init(sdkKey);
+  const ldClient = init(sdkKey, buildSdkOptions());
   await ldClient.waitForInitialization({ timeout: 15 });
   const aiClient = initAi(ldClient);
   cached = { ldClient, aiClient };
