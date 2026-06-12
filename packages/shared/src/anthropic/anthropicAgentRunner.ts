@@ -57,7 +57,7 @@ function modeNote(caps: ToolCapabilities): string {
   return lines.join("\n") + TAGGING_NOTE;
 }
 
-const DEFAULT_MAX_TURNS = 12;
+const DEFAULT_MAX_TURNS = 30;
 const MAX_TOKENS = 4096;
 const DEFAULT_MODEL = "claude-sonnet-4-6";
 

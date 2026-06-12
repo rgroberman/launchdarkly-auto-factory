@@ -35950,7 +35950,7 @@ function modeNote(caps) {
   lines.push("Keep exploration focused, then finish with a short brief for the next agent.");
   return lines.join("\n") + TAGGING_NOTE;
 }
-var DEFAULT_MAX_TURNS = 12;
+var DEFAULT_MAX_TURNS = 30;
 var MAX_TOKENS = 4096;
 var DEFAULT_MODEL = "claude-sonnet-4-6";
 var NODE_CAPABILITIES = {
