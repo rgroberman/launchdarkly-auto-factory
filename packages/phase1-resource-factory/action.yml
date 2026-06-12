@@ -42,19 +42,19 @@ inputs:
   pr_base:
     description: "PR base branch, used by the git_diff tool to show the change set (e.g. github.event.pull_request.base.ref)."
     required: false
- ld_base_url:
- description: "LaunchDarkly API base URL."
- required: false
- default: "https://app.launchdarkly.com"
- ld_stream_url:
- description: "Server-SDK streaming endpoint override (e.g. https://stream.ld.catamorphic.com). Defaults to the commercial cloud."
- required: false
- ld_sdk_base_url:
- description: "Server-SDK polling/base endpoint override (e.g. https://sdk.ld.catamorphic.com). Defaults to the commercial cloud."
- required: false
- ld_events_url:
- description: "Server-SDK events endpoint override (e.g. https://events.ld.catamorphic.com). Defaults to the commercial cloud."
- required: false
+  ld_base_url:
+    description: "LaunchDarkly API base URL."
+    required: false
+    default: "https://app.launchdarkly.com"
+  ld_stream_url:
+    description: "Server-SDK streaming endpoint override (e.g. https://stream.ld.catamorphic.com). Defaults to the commercial cloud."
+    required: false
+  ld_sdk_base_url:
+    description: "Server-SDK polling/base endpoint override (e.g. https://sdk.ld.catamorphic.com). Defaults to the commercial cloud."
+    required: false
+  ld_events_url:
+    description: "Server-SDK events endpoint override (e.g. https://events.ld.catamorphic.com). Defaults to the commercial cloud."
+    required: false
   graph_key:
     description: "Agent graph key to resolve from LaunchDarkly and walk."
     required: false
